@@ -58,34 +58,21 @@ createApp({
                 this.alumnos.push(JSON.parse(valor));
             }
         },
-      new Vue({
-    el: '#app',
-    data: {
-        buscar: '', // El término de búsqueda
-        alumnos: [], // Lista de alumnos que se muestran
-        todosLosAlumnos: [] // Copia de todos los alumnos para restaurar
-    },
-    methods: {
-        // Método para listar todos los alumnos
-        listarAlumnos() {
-            this.alumnos = [...this.todosLosAlumnos]; // Restauramos la lista completa
-        },
-        // Método para buscar alumnos
-        buscarAlumno() {
-            if (this.buscar.trim() === '') {
-                this.listarAlumnos(); // Si el campo de búsqueda está vacío, mostrar todos los alumnos
-            } else {
-                this.alumnos = this.todosLosAlumnos.filter(alumno => 
-                    alumno.codigo.includes(this.buscar) || 
-                    alumno.nombre.toLowerCase().includes(this.buscar.toLowerCase()) || 
-                    alumno.direccion.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.email.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.telefono.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.municipio.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.estado.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.sexo.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                    alumno.fechaNacimiento.toLowerCase().includes(this.buscar.toLowerCase()) 
-                );
+       buscarAlumno() {
+    if (this.buscar.trim() === '') {
+        this.listarAlumnos(); // Si no hay término de búsqueda, mostramos todos los alumnos
+    } else {
+        this.alumnos = this.alumnos.filter(alumno => 
+            alumno.codigo.includes(this.buscar) || 
+            alumno.direccion.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.email.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.telefono.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.municipio.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.estado.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.sexo.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.nombre.toLowerCase().includes(this.buscar.toLowerCase()) ||
+            alumno.fechaNacimiento.toLowerCase().includes(this.buscar.toLowerCase()) 
+        );
             }
         },
         nuevoAlumno() {
