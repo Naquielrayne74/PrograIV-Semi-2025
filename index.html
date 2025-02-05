@@ -30,8 +30,9 @@
                                     <div class="col-3 col-md-2 direccion-label">NOMBRE</div>
                                     <div class="col-9 col-md-6">
                                         <input required v-model="nombre" 
-                                       @input="nombre = nombre.replace(/^\s+/, '').replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ]/g, '')" 
-                                       type="text" class="form-control">
+                                        @input="nombre = nombre.replace(/^\s+/, '').replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ ]/g, '').replace(/^(\s*)/, '')" 
+                                     type="text" class="form-control">
+
 
 
 
@@ -59,13 +60,15 @@
                                 <div class="row p-1">
                                     <div class="col-3 col-md-2 direccion-label">MUNICIPIO</div>
                                     <div class="col-9 col-md-6">
-                                        <input required v-model="municipio" @input="municipio = municipio.replace(/^\s+/, '')" type="text" class="form-control">
+                                        <input required v-model="municipio" @input="municipio = municipio.replace(/^\s+/, '').replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ ]/g, '').replace(/^(\s*)/, '')" 
+                                        type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row p-1">
                                     <div class="col-3 col-md-2 direccion-label">ESTADO</div>
                                     <div class="col-9 col-md-7">
-                                        <input required v-model="estado" @input="estado = estado.replace(/^\s+/, '')" type="text" class="form-control">
+                                        <input required v-model="estado" @input="estado = estado.replace(/^\s+/, '').replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ ]/g, '').replace(/^(\s*)/, '')" 
+                                        type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row p-1">
