@@ -1,0 +1,77 @@
+body {
+    background-image: url('img/naquiel.jpg'); /* Ruta de la imagen */
+    background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 120vh; /* Asegura que el fondo ocupe toda la pantalla */
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Contenedor principal */
+.container-fluid {
+    margin-top: 20px;
+}
+
+/* Tarjetas */
+.card {
+    background-color: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.card-footer {
+    background-color: #0056b3;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #284aa7;
+    border-color: #218838;
+}
+
+.btn-warning {
+    background-color: #079cff;
+    border-color: #6b73e4;
+    color: #ffffff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #c82333;
+}
+
+/* Inputs y Selects */
+.form-control {
+    border: 1px solid #046ddd;
+}
+
+/* Tabla */
+.table {
+    background-color: rgb(255, 255, 255);
+}
+
+.table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #cce5ff;
+}
+
+/* Resaltado de fila seleccionada */
+.table-info {
+    background-color: #7daee6 !important;
+}
+
+.direccion-label {
+    font-size: 0.9rem; /* Ajusta según necesites */
+}
