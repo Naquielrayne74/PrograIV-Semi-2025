@@ -16,7 +16,7 @@ body {
 
 /* Tarjetas */
 .card {
-    background-color: #ffffff;
+    background-color: #c9c7c7;
     border-color: #007bff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -32,9 +32,28 @@ body {
 }
 
 /* Botones */
+.btn-anim {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-anim:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+    filter: brightness(1.2); /* Hace que el botón brille un poco */
+}
+
+.btn-anim:active {
+    transform: scale(0.95);
+}
+
+/* Personalizando los colores con la animación */
 .btn-primary {
     background-color: #284aa7;
     border-color: #218838;
+}
+
+.btn-primary:hover {
+    background-color: #1e3a8a; /* Azul más oscuro */
 }
 
 .btn-warning {
@@ -43,10 +62,65 @@ body {
     color: #ffffff;
 }
 
-.btn-danger {
+.btn-warning:hover {
+    background-color: #007acc; /* Azul más intenso */
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+}
+
+.delete-btn {
     background-color: #dc3545;
     border-color: #c82333;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 30px;
+    overflow: hidden;
+    color: white;
 }
+
+.delete-text {
+    transition: opacity 0.3s ease-in-out;
+    color: white;
+}
+
+.delete-icon {
+    font-size: 1.2em;
+    opacity: 0;
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+    color: white;  /* Color blanco para que se vea */
+}
+
+.delete-btn:hover {
+    background-color: #b21f2d;
+    animation: shake 0.3s ease-in-out;
+    width: 60px;
+    height: 35px;
+}
+
+.delete-btn:hover .delete-text {
+    opacity: 0;
+}
+
+.delete-btn:hover .delete-icon {
+    opacity: 1;
+}
+
+.delete-btn:active {
+    transform: scale(0.95);
+}
+
+
 
 /* Inputs y Selects */
 .form-control {
