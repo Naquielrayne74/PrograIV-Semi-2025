@@ -66,6 +66,7 @@ body {
     background-color: #007acc; /* Azul más intenso */
 }
 
+/* boton de eliminar animado */
 @keyframes shake {
     0% { transform: translateX(0); }
     25% { transform: translateX(-3px); }
@@ -103,7 +104,7 @@ body {
 
 .delete-btn:hover {
     background-color: #b21f2d;
-    animation: shake 0.3s ease-in-out;
+    animation: shake 0.3s ease-in-out; /* Activa la vibracion del boton elimina */
     width: 60px;
     height: 35px;
 }
