@@ -33,6 +33,7 @@ createApp({
             );
         }
     },
+    
     methods: {
         guardarAlumno() {
             if (!this.codigo || !this.nombre || !this.direccion || !this.telefono ||
@@ -41,7 +42,6 @@ createApp({
                 return;
             }
             
-
             let alumno = {
                 codigo: this.codigo,
                 nombre: this.nombre,
@@ -54,26 +54,40 @@ createApp({
                 sexo: this.sexo,
             };
 
-            localStorage.setItem(this.codigo, JSON.stringify(alumno));
+            if (this.editando) {
+                // Si está en modo edición, actualiza el alumno en localStorage
+                localStorage.setItem(this.codigo, JSON.stringify(alumno));
+            } else {
+                // Si está en modo nuevo, verifica que el código no exista antes de guardar
+                if (localStorage.getItem(this.codigo)) {
+                    alert("⚠️ El código ya existe. Por favor, ingrese otro.");
+                    return;
+                }
+                localStorage.setItem(this.codigo, JSON.stringify(alumno));
+            }
+
             this.listarAlumnos();
             this.nuevoAlumno();
         },
+
         listarAlumnos() {
             this.alumnos = [];
             for (let i = 0; i < localStorage.length; i++) {
                 let clave = localStorage.key(i);
                 let alumno = JSON.parse(localStorage.getItem(clave));
-                if (alumno && alumno.codigo) {
+                if (alumno && alumno.codigo && !this.alumnos.some(a => a.codigo === alumno.codigo)) {
                     this.alumnos.push(alumno);
                 }
             }
         },
+
         eliminarAlumno(alumno) {
             if (confirm(`¿Está seguro de eliminar a ${alumno.nombre}?`)) {
                 localStorage.removeItem(alumno.codigo);
                 this.listarAlumnos();
             }
         },
+
         seleccionarAlumno(alumno) {
             this.codigo = alumno.codigo;
             this.nombre = alumno.nombre;
@@ -86,6 +100,7 @@ createApp({
             this.sexo = alumno.sexo;
             this.editando = true;
         },
+
         nuevoAlumno() {
             this.codigo = '';
             this.nombre = '';
@@ -98,9 +113,8 @@ createApp({
             this.sexo = '';
             this.editando = false;
         }
-        
-        
     },
+
     created() {
         this.listarAlumnos();
     }

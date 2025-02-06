@@ -22,10 +22,15 @@
                                 <div class="row p-1">
                                     <div class="col-3 col-md-2 direccion-label">CODIGO</div>
                                     <div class="col-9 col-md-4">
-                                        <input required v-model="codigo" 
-                                        @input="codigo = codigo.replace(/^\s+/, '').replace(/[^a-zA-Z0-9]/g, '')" 
-                                        type="text" class="form-control">
-                                 
+                                        <input 
+                                            required 
+                                         v-model="codigo" 
+                                         @input="codigo = codigo.replace(/^\s+/, '').replace(/[^a-zA-Z0-9]/g, '')" 
+                                       type="text" 
+                                        class="form-control" 
+                                      :disabled="editando"
+                                     :class="{'disabled-input': editando}">
+                                                             
                                     </div>
                                 </div>
                                 <div class="row p-1">

@@ -3,7 +3,7 @@ body {
     background-size: cover; /* Ajusta la imagen para cubrir toda la pantalla */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita que la imagen se repita */
-    height: 120vh; /* Asegura que el fondo ocupe toda la pantalla */
+    height: 150vh; /* Asegura que el fondo ocupe toda la pantalla */
     margin: 0;
     padding: 0;
 }
@@ -150,3 +150,12 @@ body {
 .direccion-label {
     font-size: 0.9rem; /* Ajusta según necesites */
 }
+
+.disabled-input {
+    background-color: #aaa9a9 !important; /* Un gris más oscuro */
+    color: #000000 !important; /* Color del texto más claro para contraste */
+    cursor: not-allowed;
+    opacity: 1 !important; /* Evita que se vea desvanecido en algunos navegadores */
+  }
+  
+  
