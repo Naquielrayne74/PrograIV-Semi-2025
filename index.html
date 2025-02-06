@@ -50,7 +50,8 @@
                                     <div class="col-3 col-md-2 direccion-label">TELÉFONO</div>
                                     <div class="col-9 col-md-4">
                                         <input required v-model="telefono" type="text" class="form-control" @input="telefono = telefono.replace(/\D/g, '')">
-                                          
+
+                                    </div>
                                 </div>
                                 <div class="row p-1">
                                     <div class="col-3 col-md-2 direccion-label">EMAIL</div>
@@ -98,7 +99,7 @@
                     </form>
                 </div>
 
-                <!-- Listado de alumnos y tabla-->
+                <!-- Listado de alumnos -->
                 <div class="col-md-6">
                     <input type="text" v-model="buscar" placeholder="Buscar alumno" class="form-control mb-2">
                     <table class="table table-sm table-bordered table-hover mt-2">
@@ -135,7 +136,7 @@
                                         <i class="fa fa-trash delete-icon"></i>
                                     </button>
                                     
-                                     <!-- Listado de alumnos y tabla-->
+                                    
                                     
                                 </td>
                             </tr>
