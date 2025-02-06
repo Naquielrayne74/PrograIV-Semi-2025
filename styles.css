@@ -158,4 +158,17 @@ body {
     opacity: 1 !important; /* Evita que se vea desvanecido en algunos navegadores */
   }
   
-  
+  .is-invalid {
+    border: 2px solid red !important;
+    box-shadow: 0px 0px 5px rgba(255, 0, 0, 0.5);
+}
+
+.is-valid {
+    border: 2px solid green !important;
+    box-shadow: 0px 0px 5px rgba(0, 255, 0, 0.5);
+}
+
+.input-group-append .input-group-text {
+    background: transparent;
+    border: none;
+}

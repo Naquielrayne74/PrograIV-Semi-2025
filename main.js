@@ -35,6 +35,11 @@ createApp({
     },
     
     methods: {
+        validarEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        },
+
         guardarAlumno() {
             if (!this.codigo || !this.nombre || !this.direccion || !this.telefono ||
                 !this.email || !this.municipio || !this.estado || !this.fechaNacimiento || !this.sexo) {
@@ -55,10 +60,8 @@ createApp({
             };
 
             if (this.editando) {
-                // Si está en modo edición, actualiza el alumno en localStorage
                 localStorage.setItem(this.codigo, JSON.stringify(alumno));
             } else {
-                // Si está en modo nuevo, verifica que el código no exista antes de guardar
                 if (localStorage.getItem(this.codigo)) {
                     alert("⚠️ El código ya existe. Por favor, ingrese otro.");
                     return;
