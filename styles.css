@@ -152,10 +152,10 @@ body {
 }
 
 .disabled-input {
-    background-color: #aaa9a9 !important; /* Un gris más oscuro */
-    color: #000000 !important; /* Color del texto más claro para contraste */
+    background-color: #aaa9a9 !important; 
+    color: #000000 !important;
     cursor: not-allowed;
-    opacity: 1 !important; /* Evita que se vea desvanecido en algunos navegadores */
+    opacity: 1 !important; 
   }
   
   .is-invalid {
