@@ -43,8 +43,7 @@ createApp({
         guardarAlumno() {
             if (!this.codigo || !this.nombre || !this.direccion || !this.telefono ||
                 !this.email || !this.municipio || !this.estado || !this.fechaNacimiento || !this.sexo) {
-                alert("⚠️ Por favor, complete todos los campos antes de guardar.");
-                return;
+                
             }
             
             let alumno = {

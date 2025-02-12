@@ -56,6 +56,24 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                
+                           <!-- Direccion -->
+                            <div class="row p-1">
+                         <div class="col-3 col-md-2 direccion-label">DIRECCION</div>
+                           <div class="col-9 col-md-6">
+                             <div class="input-group">
+                                 <input required v-model="direccion" 
+                                    @input="direccion = direccion.replace(/^\s+/, '').replace(/[^a-zA-ZÁÉÍÓÚáéíóúÜüÑñ0-9\s.,-]/g, '')" 
+                                  type="text" class="form-control"
+                                  :class="{'is-invalid': !direccion, 'is-valid': direccion}">
+                                         <div class="input-group-append">
+            
+                                       </div>
+                                     </div>
+                                      </div>
+                                   </div>
+
                 
                                 <!-- TELEFONO -->
                                 <div class="row p-1">
