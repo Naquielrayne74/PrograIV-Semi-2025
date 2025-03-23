@@ -1,123 +1,56 @@
-const { createApp } = Vue;
+const {createApp, ref} = Vue;
+const {v4: uuidv4} = uuid;
+const Dexie = window.Dexie,
+    db = new Dexie('db_academico');
 
-createApp({
+const app = createApp({
+    components: {
+        alumno,
+        docente, 
+        materia,
+        buscaralumno,
+        buscardocente,
+        buscarmateria,
+        matricula
+    },
     data() {
         return {
-            alumnos: [],
-            codigo: '',
-            nombre: '',
-            direccion: '',
-            telefono: '',
-            email: '',
-            municipio: '',
-            estado: '',
-            fechaNacimiento: '',
-            sexo: '',
-            buscar: '',
-            editando: false
+            forms : {
+                alumno: { mostrar: false },
+                docente: { mostrar: false }, 
+                buscarAlumno: { mostrar: false },
+                buscarDocente: { mostrar: false },
+                materia: { mostrar: false },
+                buscarMateria: { mostrar: false },
+                matricula: { mostrar: false },
+            },
         };
     },
-
-    computed: {
-        alumnosFiltrados() {
-            return this.alumnos.filter(alumno => 
-                alumno.nombre.toLowerCase().includes(this.buscar.toLowerCase()) || 
-                alumno.codigo.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.direccion.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.telefono.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.email.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.municipio.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.estado.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.sexo.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.fechaNacimiento.toLowerCase().includes(this.buscar.toLowerCase())
-            );
-        }
-    },
-    
     methods: {
-        validarEmail(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return regex.test(email);
+        buscar(form, metodo) {
+            this.$refs[form][metodo]();
         },
-
-        guardarAlumno() {
-            if (!this.codigo || !this.nombre || !this.direccion || !this.telefono ||
-                !this.email || !this.municipio || !this.estado || !this.fechaNacimiento || !this.sexo) {
-                
-            }
+        abrirFormulario(componente) {
             
-            let alumno = {
-                codigo: this.codigo,
-                nombre: this.nombre,
-                direccion: this.direccion,
-                telefono: this.telefono,
-                email: this.email,
-                municipio: this.municipio,
-                estado: this.estado,
-                fechaNacimiento: this.fechaNacimiento,
-                sexo: this.sexo,
-            };
-
-            if (this.editando) {
-                localStorage.setItem(this.codigo, JSON.stringify(alumno));
-            } else {
-                if (localStorage.getItem(this.codigo)) {
-                    alert("⚠️ El código ya existe. Por favor, ingrese otro.");
-                    return;
-                }
-                localStorage.setItem(this.codigo, JSON.stringify(alumno));
-            }
-
-            this.listarAlumnos();
-            this.nuevoAlumno();
+            Object.keys(this.forms).forEach(key => {
+                this.forms[key].mostrar = false;
+            });
+        
+            this.forms[componente].mostrar = true;
         },
-
-        listarAlumnos() {
-            this.alumnos = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                let clave = localStorage.key(i);
-                let alumno = JSON.parse(localStorage.getItem(clave));
-                if (alumno && alumno.codigo && !this.alumnos.some(a => a.codigo === alumno.codigo)) {
-                    this.alumnos.push(alumno);
-                }
-            }
-        },
-
-        eliminarAlumno(alumno) {
-            if (confirm(`¿Está seguro de eliminar a ${alumno.nombre}?`)) {
-                localStorage.removeItem(alumno.codigo);
-                this.listarAlumnos();
-            }
-        },
-
-        seleccionarAlumno(alumno) {
-            this.codigo = alumno.codigo;
-            this.nombre = alumno.nombre;
-            this.direccion = alumno.direccion;
-            this.telefono = alumno.telefono;
-            this.email = alumno.email;
-            this.municipio = alumno.municipio;
-            this.estado = alumno.estado;
-            this.fechaNacimiento = alumno.fechaNacimiento;
-            this.sexo = alumno.sexo;
-            this.editando = true;
-        },
-
-        nuevoAlumno() {
-            this.codigo = '';
-            this.nombre = '';
-            this.direccion = '';
-            this.telefono = '';
-            this.email = '';
-            this.municipio = '';
-            this.estado = '';
-            this.fechaNacimiento = '';
-            this.sexo = '';
-            this.editando = false;
+        modificar(form, metodo, datos) {
+            this.$refs[form][metodo](datos);
         }
+    
     },
-
     created() {
-        this.listarAlumnos();
+        db.version(1).stores({
+            alumnos: 'codigo_transaccion, codigo, nombre, direccion, telefono, email, fechanacimiento, sexo, hash', /*no poner idAlumno */
+            docentes:'codigo_transaccion, codigo, nombre, direccion, telefono, email, fechanacimiento, sexo, hash',
+            materias: 'codigo_transaccion, codigo, nombre, uv, hash',
+            matricula: '++idMatricula, idAlumno, codigo_transaccion, data, hash'
+
+        });
     }
-}).mount('#app');
+});
+app.mount('#app');
