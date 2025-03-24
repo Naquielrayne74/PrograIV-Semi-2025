@@ -1,5 +1,4 @@
-    
- const alumno = {
+const alumno = {
     props: ['forms'],
     data() {
         return {
