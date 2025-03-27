@@ -68,6 +68,7 @@
             <buscardocente v-show="forms.buscarDocente.mostrar" ref="buscardocente" @modificar="modificar('docente', 'modificarDocente', $event)"></buscardocente>
             
             <matricula v-show="forms.matricula.mostrar" :forms="forms" ref="matricula" @buscar="buscar('buscarmatricula', 'listarMatricula')"></matricula>
+            <inscripcion v-show="forms.inscripcion.mostrar" :forms="forms" ref="inscripcion"></inscripcion>
             
         </div>
     </div>
@@ -85,6 +86,7 @@
     <script src="componentes/docentes.js"></script>
     <script src="componentes/busqueda_docentes.js"></script>
     <script src="componentes/matricula.js"></script>
+    <script src="componentes/inscripcion.js"></script>
 
     <script src="main.js"></script>
 
