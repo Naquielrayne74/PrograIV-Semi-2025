@@ -2,16 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>IPv6 a Binario</title>
+  <title>Conversor IPv6 ↔ Binario</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>Convertir IPv6 a Binario</h1>
-  
-  <input type="text" id="ipv6" placeholder="Ejemplo: 2001:CAFE:CAFE:1::">
+  <h1>Conversor IPv6 ↔ Binario</h1>
+
+  <select id="modo" onchange="cambiarModo()">
+    <option value="ipv6-bin">IPv6 a Binario</option>
+    <option value="bin-ipv6">Binario a IPv6</option>
+  </select>
+
+  <div id="ipv6-input">
+    <input type="text" id="ipv6" placeholder="Ejemplo: 2001:CAFE:CAFE:1::">
+  </div>
+
+  <div id="binario-input" style="display: none;">
+    <input type="text" id="binario" placeholder="Ingrese dirección binaria completa">
+  </div>
+
+  <input type="text" id="mascara" placeholder="Máscara (ej: /64) opcional">
+
   <br>
-  <button onclick="convertirIPv6()">Convertir</button>
+  <button onclick="convertir()">Convertir</button>
 
   <div id="resultado"></div>
 
