@@ -1,123 +1,42 @@
-const { createApp } = Vue;
-
-createApp({
-    data() {
-        return {
-            alumnos: [],
-            codigo: '',
-            nombre: '',
-            direccion: '',
-            telefono: '',
-            email: '',
-            municipio: '',
-            estado: '',
-            fechaNacimiento: '',
-            sexo: '',
-            buscar: '',
-            editando: false
-        };
-    },
-
-    computed: {
-        alumnosFiltrados() {
-            return this.alumnos.filter(alumno => 
-                alumno.nombre.toLowerCase().includes(this.buscar.toLowerCase()) || 
-                alumno.codigo.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.direccion.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.telefono.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.email.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.municipio.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.estado.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.sexo.toLowerCase().includes(this.buscar.toLowerCase()) ||
-                alumno.fechaNacimiento.toLowerCase().includes(this.buscar.toLowerCase())
-            );
-        }
-    },
-    
-    methods: {
-        validarEmail(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return regex.test(email);
-        },
-
-        guardarAlumno() {
-            if (!this.codigo || !this.nombre || !this.direccion || !this.telefono ||
-                !this.email || !this.municipio || !this.estado || !this.fechaNacimiento || !this.sexo) {
-                
-            }
-            
-            let alumno = {
-                codigo: this.codigo,
-                nombre: this.nombre,
-                direccion: this.direccion,
-                telefono: this.telefono,
-                email: this.email,
-                municipio: this.municipio,
-                estado: this.estado,
-                fechaNacimiento: this.fechaNacimiento,
-                sexo: this.sexo,
-            };
-
-            if (this.editando) {
-                localStorage.setItem(this.codigo, JSON.stringify(alumno));
-            } else {
-                if (localStorage.getItem(this.codigo)) {
-                    alert("⚠️ El código ya existe. Por favor, ingrese otro.");
-                    return;
-                }
-                localStorage.setItem(this.codigo, JSON.stringify(alumno));
-            }
-
-            this.listarAlumnos();
-            this.nuevoAlumno();
-        },
-
-        listarAlumnos() {
-            this.alumnos = [];
-            for (let i = 0; i < localStorage.length; i++) {
-                let clave = localStorage.key(i);
-                let alumno = JSON.parse(localStorage.getItem(clave));
-                if (alumno && alumno.codigo && !this.alumnos.some(a => a.codigo === alumno.codigo)) {
-                    this.alumnos.push(alumno);
-                }
-            }
-        },
-
-        eliminarAlumno(alumno) {
-            if (confirm(`¿Está seguro de eliminar a ${alumno.nombre}?`)) {
-                localStorage.removeItem(alumno.codigo);
-                this.listarAlumnos();
-            }
-        },
-
-        seleccionarAlumno(alumno) {
-            this.codigo = alumno.codigo;
-            this.nombre = alumno.nombre;
-            this.direccion = alumno.direccion;
-            this.telefono = alumno.telefono;
-            this.email = alumno.email;
-            this.municipio = alumno.municipio;
-            this.estado = alumno.estado;
-            this.fechaNacimiento = alumno.fechaNacimiento;
-            this.sexo = alumno.sexo;
-            this.editando = true;
-        },
-
-        nuevoAlumno() {
-            this.codigo = '';
-            this.nombre = '';
-            this.direccion = '';
-            this.telefono = '';
-            this.email = '';
-            this.municipio = '';
-            this.estado = '';
-            this.fechaNacimiento = '';
-            this.sexo = '';
-            this.editando = false;
-        }
-    },
-
-    created() {
-        this.listarAlumnos();
+function expandirIPv6(ipv6) {
+    const bloques = ipv6.split("::");
+    let parte1 = bloques[0] ? bloques[0].split(":") : [];
+    let parte2 = bloques[1] ? bloques[1].split(":") : [];
+  
+    const faltantes = 8 - (parte1.length + parte2.length);
+    const ceros = Array(faltantes).fill("0000");
+  
+    const grupos = [...parte1, ...ceros, ...parte2];
+    return grupos.map(g => g.padStart(4, '0'));
+  }
+  
+  function formatearBinarioIPv6(binarios) {
+    let bloques = binarios.map(bin =>
+      bin.match(/.{1,4}/g).join(" ")
+    );
+  
+    // Eliminar bloques de ceros al final
+    while (bloques.length && bloques[bloques.length - 1] === "0000 0000 0000 0000") {
+      bloques.pop();
     }
-}).mount('#app');
+  
+    // Agregar "::" al final para indicar ceros comprimidos
+    return bloques.join(": ") + "::";
+  }
+  
+  function convertirIPv6() {
+    const ipv6 = document.getElementById("ipv6").value.trim();
+    try {
+      const grupos = expandirIPv6(ipv6);
+      const binarios = grupos.map(hex =>
+        parseInt(hex, 16).toString(2).padStart(16, '0')
+      );
+      const resultadoFormateado = formatearBinarioIPv6(binarios);
+      document.getElementById("resultado").innerText = resultadoFormateado;
+    } catch (error) {
+      document.getElementById("resultado").innerText = "Dirección no válida.";
+    }
+  }
+  
+  
+  
