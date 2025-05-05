@@ -50,7 +50,7 @@
       </div>
       
       
-      <h2 class="form-title text-center mb-2">Crea tu cuenta</h2>
+      <h2 class="form-title text-center mb-2">Crea tu cuenta admin</h2>
       <div class="separator mx-auto mb-4"></div>
 
       <!--  Nombre completo -->
@@ -115,15 +115,41 @@
 
      <div class="centrar">
     <button id="btnRegistros">Registros</button>
-</div>
+    </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('btnRegistros');
-        btn.addEventListener('click', () => {
-            window.location.href = "{{ route('registros') }}";
+  document.getElementById('btnRegistrar').addEventListener('click', function () {
+    const nombre = document.getElementById('fullname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('password2').value;
+
+    if (nombre && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: 'Tu cuenta ha sido creada correctamente.'
         });
-    });
+
+        // Aquí podrías limpiar el formulario si querés
+        // document.getElementById('registroForm').reset();
+
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Las contraseñas no coinciden',
+          text: 'Por favor, verifica que ambas contraseñas sean iguales.'
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos incompletos',
+        text: 'Debes llenar todos los campos para continuar.'
+      });
+    }
+  });
 </script>
 
 
