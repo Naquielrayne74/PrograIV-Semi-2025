@@ -3,31 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <title>Conversor IPv6 ↔ Binario</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .contenedor {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #ddd;
+      animation: fadeIn 0.6s ease;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    select, input, button {
+      padding: 12px;
+      width: 100%;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    select:focus, input:focus {
+      border-color: #66a6ff;
+      box-shadow: 0 0 8px rgba(102, 166, 255, 0.3);
+    }
+
+    button {
+      background: #66a6ff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #5590e8;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      background: #1e1e1e;
+      color: #dcdcdc;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      text-align: left;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      display: none;
+    }
+
+    #btnCopiar {
+      background: #4CAF50;
+      border: none;
+      color: white;
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      display: none;
+    }
+
+    #btnCopiar:hover {
+      background: #45a049;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-  <h1>Conversor IPv6 ↔ Binario</h1>
+  <div class="contenedor">
+    <h1>Conversor IPv6 ↔ Binario</h1>
 
-  <select id="modo" onchange="cambiarModo()">
-    <option value="ipv6-bin">IPv6 a Binario</option>
-    <option value="bin-ipv6">Binario a IPv6</option>
-  </select>
+    <select id="modo" onchange="cambiarModo()">
+      <option value="ipv6-bin">IPv6 a Binario</option>
+      <option value="bin-ipv6">Binario a IPv6</option>
+    </select>
 
-  <div id="ipv6-input">
-    <input type="text" id="ipv6" placeholder="Ejemplo: 2001:CAFE:CAFE:1::">
+    <div id="ipv6-input">
+      <input type="text" id="ipv6" placeholder="Ejemplo: 2001:CAFE:CAFE:1::">
+    </div>
+
+    <div id="binario-input" style="display: none;">
+      <input type="text" id="binario" placeholder="Ingrese dirección binaria completa">
+    </div>
+
+    <input type="text" id="mascara" placeholder="Máscara (ej: /64) opcional">
+
+    <button onclick="convertir()">Convertir</button>
+
+    <pre id="resultado"></pre>
+    <button id="btnCopiar" onclick="copiarResultado()">Copiar</button>
   </div>
-
-  <div id="binario-input" style="display: none;">
-    <input type="text" id="binario" placeholder="Ingrese dirección binaria completa">
-  </div>
-
-  <input type="text" id="mascara" placeholder="Máscara (ej: /64) opcional">
-
-  <br>
-  <button onclick="convertir()">Convertir</button>
-
-  <div id="resultado"></div>
 
   <script src="main.js"></script>
 </body>

@@ -27,26 +27,30 @@ function convertir() {
   const modo = document.getElementById("modo").value;
   const mascara = document.getElementById("mascara").value.trim();
   const resultado = document.getElementById("resultado");
+  const btnCopiar = document.getElementById("btnCopiar");
 
   try {
+    let salida = "";
     if (modo === "ipv6-bin") {
       const ipv6 = document.getElementById("ipv6").value.trim();
       const grupos = expandirIPv6(ipv6);
       const binarios = grupos.map(hex =>
         parseInt(hex, 16).toString(2).padStart(16, '0')
       );
-      let salida = formatearBinarioIPv6(binarios);
-      if (mascara) salida += " " + mascara;
-      resultado.innerText = salida;
+      salida = formatearBinarioIPv6(binarios);
     } else {
       const bin = document.getElementById("binario").value.trim();
-      const ipv6 = binarioAIPv6(bin);
-      let salida = ipv6;
-      if (mascara) salida += " " + mascara;
-      resultado.innerText = salida;
+      salida = binarioAIPv6(bin);
     }
+    if (mascara) salida += " " + mascara;
+    
+    resultado.textContent = salida;
+    resultado.style.display = "block";
+    btnCopiar.style.display = "inline-block";
   } catch (error) {
-    resultado.innerText = "Error: " + error.message;
+    resultado.textContent = "Error: " + error.message;
+    resultado.style.display = "block";
+    btnCopiar.style.display = "none";
   }
 }
 
@@ -54,4 +58,13 @@ function cambiarModo() {
   const modo = document.getElementById("modo").value;
   document.getElementById("ipv6-input").style.display = modo === "ipv6-bin" ? "block" : "none";
   document.getElementById("binario-input").style.display = modo === "bin-ipv6" ? "block" : "none";
+}
+
+function copiarResultado() {
+  const texto = document.getElementById("resultado").textContent;
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = document.getElementById("btnCopiar");
+    btn.textContent = "¡Copiado!";
+    setTimeout(() => btn.textContent = "Copiar", 1500);
+  });
 }
