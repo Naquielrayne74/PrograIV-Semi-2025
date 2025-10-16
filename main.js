@@ -68,3 +68,5 @@ function copiarResultado() {
     setTimeout(() => btn.textContent = "Copiar", 1500);
   });
 }
+
+
